@@ -22,7 +22,7 @@ class SignTile extends StatelessWidget {
         children: [
           Container(
             clipBehavior: Clip.hardEdge,
-            decoration: BoxDecoration(
+            decoration: const BoxDecoration(
               borderRadius: BorderRadius.all(Radius.circular(20)),
             ),
             child: Image.asset('assets/images/$imagePath.png'),

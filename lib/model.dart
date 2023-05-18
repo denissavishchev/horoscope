@@ -1,8 +1,9 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'dart:developer' as logDev;
 
-const day = 'monthly';
+const day = 'daily-today';
 // ['daily-today', 'daily-yesterday', 'daily-tomorrow', 'weekly', 'monthly'];
 var sign = 12;
 
@@ -26,6 +27,7 @@ class Data with ChangeNotifier{
         BeautifulSoup bs = BeautifulSoup(response.body);
         _horoscope = bs.find('p');
         _error = false;
+        // logDev.log('$day: $_horoscope');
 
       }catch (e) {
         _error = true;
@@ -40,6 +42,7 @@ class Data with ChangeNotifier{
   void initialValues() {
     _error = false;
     _errorMessage = '';
+    _horoscope = null;
     notifyListeners();
   }
 }
