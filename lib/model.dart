@@ -1,11 +1,6 @@
 import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
-import 'dart:developer' as logDev;
-
-const day = 'daily-today';
-// ['daily-today', 'daily-yesterday', 'daily-tomorrow', 'weekly', 'monthly'];
-var sign = 12;
 
 class Data with ChangeNotifier{
 
@@ -16,6 +11,31 @@ class Data with ChangeNotifier{
   Bs4Element? get horoscope => _horoscope;
   bool get error => _error;
   String get errorMessage => _errorMessage;
+
+  var day = 'daily-today';
+  var sign = 12;
+  String image = '';
+
+  void setDate(String date) {
+    day = date;
+    fetchData;
+    notifyListeners();
+  }
+
+  void frameImage() {
+    if (sign == 1 || sign == 5 || sign == 9) {
+      image = 'red';
+    }
+    if (sign == 2 || sign == 6 || sign == 10) {
+      image = 'green';
+    }
+    if (sign == 3 || sign == 7 || sign == 11) {
+      image = 'black';
+    }
+    if (sign == 4 || sign == 8 || sign == 12) {
+      image = 'blue';
+    }
+  }
 
   Future<void> get fetchData async {
     final response = await http.get(
