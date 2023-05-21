@@ -15,6 +15,7 @@ class Data with ChangeNotifier{
   var day = 'daily-today';
   var sign = 12;
   String image = '';
+  Color color = Colors.white;
 
   void setDate(String date) {
     day = date;
@@ -25,15 +26,19 @@ class Data with ChangeNotifier{
   void frameImage() {
     if (sign == 1 || sign == 5 || sign == 9) {
       image = 'red';
+      color = const Color(0xffe80016);
     }
     if (sign == 2 || sign == 6 || sign == 10) {
       image = 'green';
+      color = const Color(0xff38ae77);
     }
     if (sign == 3 || sign == 7 || sign == 11) {
       image = 'black';
+      color = const Color(0xfff8e3ba);
     }
     if (sign == 4 || sign == 8 || sign == 12) {
       image = 'blue';
+      color = const Color(0xff00b5cb);
     }
   }
 
