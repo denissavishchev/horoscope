@@ -6,9 +6,11 @@ import 'model.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 class MainPage extends StatelessWidget {
-  MainPage({Key? key}) : super(key: key);
+  MainPage({Key? key, required this.imageName}) : super(key: key);
 
-  final pattern = RegExp(r'[<p><strong></p></strong>]');
+  final pattern = RegExp(r'[<p><strong></p></strong>&b;]');
+  final patternText = RegExp(r'<br>');
+  String imageName = '';
 
   @override
   Widget build(BuildContext context) {
@@ -21,114 +23,194 @@ class MainPage extends StatelessWidget {
                 fit: BoxFit.fill)),
         child: Scaffold(
           backgroundColor: Colors.transparent,
-          body: value.horoscope == null || value.error
-              ? SpinKitSpinningLines(color: value.color, size: 150.0)
-              : value.error
-                  ? Text(
-                      'Something went wrong. ${value.errorMessage}',
-                      textAlign: TextAlign.center,
-                    )
-                  : Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 18),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          IconButton(
-                              onPressed: () {
-                                value.initialValues();
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (context) {
-                                  return StartPage();
-                                }));
-                              },
-                              icon: const Icon(Icons.arrow_back_ios)),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          Text(
-                            value.horoscope
-                                .toString()
-                                .substring(
-                                    value.horoscope.toString().indexOf('<p>'),
-                                    value.horoscope
-                                        .toString()
-                                        .indexOf('</strong>'))
-                                .replaceAllMapped(pattern, (match) => ''),
-                            style: const TextStyle(
-                                fontSize: 22, color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 20,
-                          ),
-                          SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.7,
-                            child: SingleChildScrollView(
-                              child: Text(
-                                value.horoscope.toString().substring(
-                                    value.horoscope.toString().indexOf('-'),
-                                    value.horoscope
-                                        .toString()
-                                        .indexOf('</p>')),
-                                style: const TextStyle(
-                                    fontSize: 18, color: Colors.white),
-                              ),
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 10,
-                          ),
-                          Column(
+          body: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              const SizedBox(
+                height: 40,
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 12.0),
+                child: Row(
+                  mainAxisAlignment:
+                  MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                        onPressed: () {
+                          value.initialValues();
+                          Navigator.push(context,
+                              MaterialPageRoute(
+                                  builder: (context) {
+                                    return StartPage();
+                                  }));
+                        },
+                        icon: const Icon(
+                          Icons.arrow_back_ios,
+                          color: Colors.white,
+                        )),
+                    Text(
+                      imageName.substring(2),
+                      style: const TextStyle(
+                          color: Colors.white, fontSize: 28),
+                    ),
+                    const SizedBox(
+                      width: 40,
+                    ),
+                  ],
+                ),
+              ),
+              value.horoscope == null || value.error
+                  ? SizedBox(
+                      height: MediaQuery.of(context).size.height * 0.75,
+                    child: Center(child: SpinKitSpinningLines(color: value.color, size: 150.0)),
+                  )
+                  : value.error
+                      ? Text(
+                          'Something went wrong. ${value.errorMessage}',
+                          textAlign: TextAlign.center,
+                        )
+                      : Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 18),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DateButton(
-                                    date: 'Yesterday',
-                                    onTap: () {
-                                      value.setDate('daily-yesterday');
-                                    },
-                                  ),
-                                  DateButton(
-                                    date: 'Today',
-                                    onTap: () {
-                                      value.setDate('daily-today');
-                                    },
-                                  ),
-                                  DateButton(
-                                    date: 'Tomorrow',
-                                    onTap: () {
-                                      value.setDate('daily-tomorrow');
-                                    },
-                                  ),
-                                ],
+                              const SizedBox(
+                                height: 10,
                               ),
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  DateButton(
-                                    date: 'Week',
-                                    onTap: () {
-                                      value.setDate('weekly');
-                                    },
+                              Padding(
+                                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    Text(value.horoscope.toString().substring(
+                                              value.horoscope.toString().indexOf('<p>'),
+                                              value.horoscope.toString().indexOf('</strong>'))
+                                          .replaceAllMapped(pattern, (match) => '')
+                                      .replaceAll('-', ' - '),
+                                      style: const TextStyle(
+                                          fontSize: 22, color: Colors.white),
+                                    ),
+                                    Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Text(value.day == 'monthly'
+                                           ? value.horoscope.toString().substring(
+                                            value.horoscope.toString().indexOf('Standout days'),
+                                            value.horoscope.toString().indexOf('Challenging days'))
+                                        .replaceAll('<br>', '')
+                                        : '', style: const TextStyle(fontSize: 16, color: Colors.white),),
+                                        Text(value.day == 'monthly'
+                                            ? value.horoscope.toString().substring(
+                                            value.horoscope.toString().indexOf('Challenging days'),
+                                            value.horoscope.toString().indexOf('</p>'))
+                                            .replaceAll('<br>', '')
+                                            : '', style: const TextStyle(fontSize: 16, color: Colors.white),),
+                                      ],
+                                    )
+                                  ],
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              SizedBox(
+                                height:
+                                    MediaQuery.of(context).size.height * 0.65,
+                                child: SingleChildScrollView(
+                                  child: Text(value.day == 'monthly'
+                                      ? value.horoscope.toString().substring(
+                                      value.horoscope.toString().indexOf(' -'),
+                                      value.horoscope
+                                          .toString()
+                                          .indexOf('<a style'))
+                                      .replaceAllMapped(patternText, (match) => '')
+                                      + value.horoscope.toString().substring(
+                                          value.horoscope.toString().indexOf('</a>'),
+                                          value.horoscope
+                                              .toString()
+                                              .indexOf('Standout days'))
+                                          .replaceAllMapped(patternText, (match) => '')
+                                  .replaceAll('</a>', ' ')
+                                    : value.horoscope.toString().substring(
+                                        value.horoscope.toString().indexOf(' -'),
+                                        value.horoscope
+                                            .toString()
+                                            .indexOf('</p>'))
+                                        .replaceAllMapped(patternText, (match) => ''),
+                                    style: const TextStyle(
+                                        fontSize: 18, color: Colors.white),
                                   ),
-                                  DateButton(
-                                    date: 'Month',
-                                    onTap: () {
-                                      value.setDate('monthly');
-                                    },
-                                  ),
-                                ],
-                              )
+                                ),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
                             ],
-                          )
+                          ),
+                        ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 18.0),
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: 90,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DateButton(
+                                date: 'Yesterday',
+                                onTap: () {
+                                  value.setButtons(Buttons.yesterday);
+                                  value.setDate('daily-yesterday');
+                                },
+                              ),
+                              DateButton(
+                                date: 'Today',
+                                onTap: () {
+                                  value.setButtons(Buttons.today);
+                                  value.setDate('daily-today');
+                                },
+                              ),
+                              DateButton(
+                                date: 'Tomorrow',
+                                onTap: () {
+                                  value.setButtons(Buttons.tomorrow);
+                                  value.setDate('daily-tomorrow');
+                                },
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              DateButton(
+                                date: 'Week',
+                                onTap: () {
+                                  value.setButtons(Buttons.week);
+                                  value.setDate('weekly');
+                                },
+                              ),
+                              DateButton(
+                                date: 'Month',
+                                onTap: () {
+                                  value.setButtons(Buttons.month);
+                                  value.setDate('monthly');
+                                },
+                              ),
+                            ],
+                          ),
                         ],
                       ),
                     ),
+                    const SizedBox(height: 20,),
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       );
     });

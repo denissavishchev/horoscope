@@ -2,7 +2,22 @@ import 'package:beautiful_soup_dart/beautiful_soup.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
+enum Buttons{
+  yesterday,
+  today,
+  tomorrow,
+  week,
+  month
+}
+
+Buttons? buttons = Buttons.today;
+
 class Data with ChangeNotifier{
+
+  void setButtons(Buttons button) {
+    buttons = button;
+    notifyListeners();
+  }
 
   Bs4Element? _horoscope;
   bool _error = false;
@@ -15,9 +30,10 @@ class Data with ChangeNotifier{
   var day = 'daily-today';
   var sign = 12;
   String image = '';
-  Color color = Colors.white;
+  Color color = Colors.transparent;
 
   void setDate(String date) {
+    initialValues();
     day = date;
     fetchData;
     notifyListeners();

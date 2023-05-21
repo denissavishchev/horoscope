@@ -17,7 +17,7 @@ class SignTile extends StatelessWidget {
           value.sign = index + 1;
           value.frameImage();
           Navigator.push(context, MaterialPageRoute(builder: (context) {
-            return MainPage();
+            return MainPage(imageName: imagePath);
           }));
         },
         child: Stack(
