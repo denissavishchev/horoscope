@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'constants.dart';
 import 'model.dart';
 
 class DateButton extends StatelessWidget {
@@ -48,7 +49,7 @@ class DateButton extends StatelessWidget {
           child: Center(
             child: Text(
               date,
-              style: const TextStyle(color: Colors.white, fontSize: 18),
+              style: textStyle.copyWith(fontSize: 18),
             ),
           ),
         ),

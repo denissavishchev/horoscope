@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:horoscope/sign_tile.dart';
 
+import 'constants.dart';
+
 class StartPage extends StatelessWidget {
   StartPage({Key? key}) : super(key: key);
 
@@ -30,28 +32,36 @@ class StartPage extends StatelessWidget {
       ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Column(
-          children: [
-            const Spacer(),
-            Container(
-              padding: const EdgeInsets.symmetric(horizontal: 8),
-              height: 550,
-              child: GridView.builder(
-                  itemCount: signs.length,
-                  gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 3,
-                        mainAxisSpacing: 10,
-                        crossAxisSpacing: 10
-                      ),
-                  itemBuilder: (context, index) {
-                    return SignTile(
-                      imagePath: signs[index], index: index,
-                    );
-                  }),
-            ),
-            const Spacer(),
-          ],
+        body: SafeArea(
+          child: Column(
+            children: [
+              const SizedBox(
+                width: double.infinity,
+                height: 80,
+                child: Center(child: Text('Trust?',
+                  style: headerStyle)),
+              ),
+              const SizedBox(height: 10,),
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 8),
+                height: 550,
+                child: GridView.builder(
+                    itemCount: signs.length,
+                    gridDelegate:
+                        const SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 3,
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10
+                        ),
+                    itemBuilder: (context, index) {
+                      return SignTile(
+                        imagePath: signs[index], index: index,
+                      );
+                    }),
+              ),
+              const Spacer(),
+            ],
+          ),
         ),
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horoscope/constants.dart';
 import 'package:horoscope/main_page.dart';
 import 'package:provider/provider.dart';
 import 'model.dart';
@@ -41,10 +42,7 @@ class SignTile extends StatelessWidget {
               alignment: Alignment.bottomCenter,
               child: Text(
                 imagePath.substring(2),
-                style: const TextStyle(
-                    color: Colors.white,
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold),
+                style: textStyle,
               ),
             ),
           ],

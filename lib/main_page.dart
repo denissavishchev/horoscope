@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:horoscope/constants.dart';
 import 'package:horoscope/start_page.dart';
 import 'package:provider/provider.dart';
 import 'date_button.dart';
@@ -45,13 +46,12 @@ class MainPage extends StatelessWidget {
                                   }));
                         },
                         icon: const Icon(
-                          Icons.arrow_back_ios,
+                          Icons.backspace_outlined,
                           color: Colors.white,
                         )),
                     Text(
                       imageName.substring(2),
-                      style: const TextStyle(
-                          color: Colors.white, fontSize: 28),
+                      style: headerStyle.copyWith(fontSize: 38),
                     ),
                     const SizedBox(
                       width: 40,
@@ -87,8 +87,7 @@ class MainPage extends StatelessWidget {
                                               value.horoscope.toString().indexOf('</strong>'))
                                           .replaceAllMapped(pattern, (match) => '')
                                       .replaceAll('-', ' - '),
-                                      style: const TextStyle(
-                                          fontSize: 22, color: Colors.white),
+                                      style: textStyle,
                                     ),
                                     Column(
                                       crossAxisAlignment: CrossAxisAlignment.start,
@@ -98,13 +97,13 @@ class MainPage extends StatelessWidget {
                                             value.horoscope.toString().indexOf('Standout days'),
                                             value.horoscope.toString().indexOf('Challenging days'))
                                         .replaceAll('<br>', '')
-                                        : '', style: const TextStyle(fontSize: 16, color: Colors.white),),
+                                        : '', style: textStyle.copyWith(fontSize: 16)),
                                         Text(value.day == 'monthly'
                                             ? value.horoscope.toString().substring(
                                             value.horoscope.toString().indexOf('Challenging days'),
                                             value.horoscope.toString().indexOf('</p>'))
                                             .replaceAll('<br>', '')
-                                            : '', style: const TextStyle(fontSize: 16, color: Colors.white),),
+                                            : '', style: textStyle.copyWith(fontSize: 16)),
                                       ],
                                     )
                                   ],
@@ -137,8 +136,7 @@ class MainPage extends StatelessWidget {
                                             .toString()
                                             .indexOf('</p>'))
                                         .replaceAllMapped(patternText, (match) => ''),
-                                    style: const TextStyle(
-                                        fontSize: 18, color: Colors.white),
+                                    style: textStyle.copyWith(fontSize: 18),
                                   ),
                                 ),
                               ),
