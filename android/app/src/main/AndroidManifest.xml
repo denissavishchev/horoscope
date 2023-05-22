@@ -1,5 +1,6 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.horoscope">
+    <uses-permission android:name="android.permission.INTERNET"/>
    <application
         android:label="Trust?"
         android:name="${applicationName}"

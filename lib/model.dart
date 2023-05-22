@@ -32,8 +32,8 @@ class Data with ChangeNotifier{
   String image = '';
   Color color = Colors.transparent;
 
-  void setDate(String date) {
-    initialValues();
+  void setDate(String date) async{
+    await initialValues();
     day = date;
     fetchData;
     notifyListeners();
@@ -80,10 +80,10 @@ class Data with ChangeNotifier{
     }
     notifyListeners();
   }
-  void initialValues() {
+  Future<void> initialValues() async {
+    _horoscope = null;
     _error = false;
     _errorMessage = '';
-    _horoscope = null;
     notifyListeners();
   }
 }

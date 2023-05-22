@@ -37,8 +37,8 @@ class MainPage extends StatelessWidget {
                   MainAxisAlignment.spaceBetween,
                   children: [
                     IconButton(
-                        onPressed: () {
-                          value.initialValues();
+                        onPressed: () async {
+                          await value.initialValues();
                           Navigator.push(context,
                               MaterialPageRoute(
                                   builder: (context) {
@@ -59,7 +59,7 @@ class MainPage extends StatelessWidget {
                   ],
                 ),
               ),
-              value.horoscope == null || value.error
+              value.horoscope == null
                   ? SizedBox(
                       height: MediaQuery.of(context).size.height * 0.75,
                     child: Center(child: SpinKitSpinningLines(color: value.color, size: 150.0)),
