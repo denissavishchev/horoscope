@@ -1,5 +1,7 @@
 Hoposcope App 
 
+All Images by MidJourney 
+
 Provider used 
 
 Parsing from: www.horoscope.com
